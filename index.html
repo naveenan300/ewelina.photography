@@ -1,0 +1,553 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Evelina Photography — Family • Maternity • Newborn • Individual</title>
+
+  <!-- Fonts & AOS -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <style>
+    /* ------------------------- Basic variables ------------------------- */
+    :root{
+      --brand:#8b5f53;
+      --muted:#6f6159;
+      --accent:#fbf6f3;
+      --card:#ffffff;
+      --max-w:1150px;
+      --radius:14px;
+      --gap:12px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;font-family:Inter,system-ui,Arial;color:#222;background:var(--accent);
+      -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+    }
+    a{color:inherit;text-decoration:none}
+    .container{max-width:var(--max-w);margin:0 auto;padding:0 20px}
+
+    /* ------------------------- NAV & HERO ------------------------- */
+    nav{
+      position:fixed;left:0;right:0;top:0;z-index:120;display:flex;justify-content:center;padding:16px;
+      transition:background .28s,box-shadow .28s;
+    }
+    .nav-inner{max-width:var(--max-w);width:100%;display:flex;align-items:center;justify-content:space-between}
+    .brand{font-family:Playfair Display,serif;font-size:20px;color:var(--card)}
+    .nav-links{display:flex;gap:18px;align-items:center}
+    .nav-links a{font-weight:600;color:var(--card);opacity:0.95}
+    .btn{background:var(--brand);color:#fff;padding:10px 14px;border-radius:9px;font-weight:600}
+    nav.solid{background:rgba(255,255,255,0.98);box-shadow:0 6px 24px rgba(16,16,16,0.06);backdrop-filter:blur(6px)}
+    nav.solid .brand{color:var(--brand)}
+    nav.solid .nav-links a{color:var(--muted)}
+
+    .hero{
+      height:100vh;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;
+      background:linear-gradient(0deg, rgba(0,0,0,0.18), rgba(0,0,0,0.18)),
+        url('images/hero.jpg') center/cover no-repeat;
+      color:#fff;overflow:hidden;
+    }
+    /* fallback hero if local image missing */
+    .hero.fallback{background-image:linear-gradient(0deg, rgba(0,0,0,0.18), rgba(0,0,0,0.18)), url('https://picsum.photos/seed/evelina-hero/2000/1200');}
+
+    .hero-inner{position:relative;z-index:3;max-width:920px;padding:24px}
+    h1{font-family:Playfair Display,serif;font-size:48px;margin:0 0 12px}
+    .hero p{font-size:18px;color:rgba(255,255,255,0.95);margin:0 0 18px}
+    .ctas{display:flex;gap:12px;justify-content:center}
+    .secondary{background:transparent;border:1px solid rgba(255,255,255,0.18);color:#fff;padding:12px 16px;border-radius:9px}
+
+    main{margin-top:20px}
+    section{padding:56px 0}
+    h2,h3{font-family:Playfair Display,serif;color:var(--brand);margin:0 0 12px}
+    p.lead{color:var(--muted);margin:0 0 18px;max-width:760px}
+
+    /* ------------------------- ABOUT ------------------------- */
+    .about-wrap{display:flex;gap:28px;align-items:center}
+    .about-text{flex:1}
+    .about-portrait{flex:0 0 360px;border-radius:12px;overflow:hidden}
+    .about-portrait img{width:100%;height:100%;object-fit:cover;display:block}
+
+    /* ------------------------- PORTFOLIO SLIDERS ------------------------- */
+    .category{margin-top:18px}
+    .category h3{margin-bottom:8px}
+    .category p{color:var(--muted);margin-bottom:12px}
+    .slider{position:relative;display:flex;align-items:center}
+    .slider-track{display:flex;gap:var(--gap);overflow:hidden;scroll-behavior:smooth;padding:6px 0}
+    .slide{flex:0 0 25%;border-radius:10px;overflow:hidden;background:#eee;cursor:pointer;min-height:160px;display:flex;align-items:center}
+    .slide img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s}
+    .slide:hover img{transform:scale(1.03)}
+    .slide-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.45);color:#fff;border:none;padding:10px 12px;border-radius:999px;cursor:pointer;z-index:5}
+    .slide-btn.prev{left:6px}
+    .slide-btn.next{right:6px}
+
+    /* small overlay label when desired (not enabled by default) */
+    .slide-label{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,0.45);color:#fff;padding:6px 10px;border-radius:8px;font-weight:600;font-size:13px}
+
+    /* ------------------------- KIND WORDS (testimonial hero) ------------------------- */
+    .kind-words{
+      position:relative;min-height:420px;display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(0deg, rgba(0,0,0,0.22), rgba(0,0,0,0.22)),
+        url('images/kind-bg.jpg') center/cover no-repeat;color:#fff;border-radius:12px;overflow:hidden;margin:28px 0;
+    }
+    .kind-words.fallback{background-image:linear-gradient(0deg, rgba(0,0,0,0.22), rgba(0,0,0,0.22)), url('https://picsum.photos/seed/evelina-kind/2000/1100');}
+    .kind-inner{position:relative;z-index:4;max-width:920px;padding:44px;text-align:center}
+    .testimonial{opacity:0;transform:translateY(8px);transition:opacity .45s, transform .45s;position:absolute;left:50%;top:50%;transform:translate(-50%,8px);width:100%;max-width:820px;padding:0 18px}
+    .testimonial.active{opacity:1;transform:translate(-50%,-50%);position:relative}
+    .quote{font-family:Playfair Display,serif;font-size:26px;line-height:1.2;margin-bottom:12px}
+    .client{font-weight:700;color:rgba(255,255,255,0.95)}
+    .kw-controls{position:absolute;left:0;right:0;bottom:18px;display:flex;align-items:center;justify-content:center;gap:12px;z-index:50}
+    .kw-arrow{background:rgba(255,255,255,0.12);border-radius:999px;padding:8px 10px;cursor:pointer;color:#fff;font-weight:700}
+    .kw-dots{display:flex;gap:8px}
+    .kw-dot{width:8px;height:8px;border-radius:999px;background:rgba(255,255,255,0.4);cursor:pointer}
+    .kw-dot.active{background:#fff}
+
+    /* ------------------------- CONNECT, JOURNAL, FAQ, CONTACT ------------------------- */
+    .connect{background:var(--card);padding:40px;border-radius:12px;box-shadow:0 8px 30px rgba(16,16,16,0.04);text-align:center;margin-top:26px}
+    .journal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .journal-card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.04)}
+    .faq-wrap{max-width:900px;margin:0 auto}
+    .faq-item{border-bottom:1px solid rgba(0,0,0,0.06);padding:14px 0;cursor:pointer}
+    .question{display:flex;justify-content:space-between;align-items:center;font-weight:600;color:var(--brand)}
+    .answer{color:var(--muted);margin-top:8px;display:none}
+    .contact-grid{display:flex;gap:18px;align-items:center;justify-content:center;flex-wrap:wrap;margin-top:12px}
+    .contact-link{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;background:var(--card);box-shadow:0 6px 20px rgba(0,0,0,0.04);font-weight:600;color:var(--brand)}
+
+    /* ------------------------- LIGHTBOX ------------------------- */
+    .lightbox{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.78);z-index:220}
+    .lightbox img{max-width:92%;max-height:88%;border-radius:8px}
+
+    /* ------------------------- Responsive ------------------------- */
+    @media (max-width:1100px){
+      .slide{flex:0 0 33.333%}
+      .journal-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:760px){
+      .slide{flex:0 0 50%}
+      .about-wrap{flex-direction:column}
+      .about-portrait{order:2;width:100%}
+      .hero h1{font-size:34px}
+    }
+    @media (max-width:420px){
+      .slide{flex:0 0 100%}
+      .kind-inner{padding:22px}
+      .journal-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="site-nav">
+    <div class="nav-inner container">
+      <div class="brand">Ewelina Photography</div>
+      <div class="nav-links" role="navigation" aria-label="Main">
+        <a href="#about">About</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#journal">Journal</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact" class="btn">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header id="hero" class="hero" role="banner" aria-label="Hero">
+    <div class="hero-inner" data-aos="fade-up" data-aos-duration="900">
+      <h1>Ewelina Photography</h1>
+      <p>Welcome to my photography journey! I capture genuine emotions and little moments that tell your unique story — family, maternity, newborn and brand photography.</p>
+      <div class="ctas">
+        <a class="btn" href="#contact">Book Your Session</a>
+        <a class="secondary" href="#portfolio">View Portfolio</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" role="main">
+
+    <!-- ABOUT -->
+    <section id="about" data-aos="fade-up" data-aos-delay="80">
+      <div class="about-wrap">
+        <div class="about-text">
+          <h2>Welcome to my photography journey!</h2>
+          <p class="lead">I am Ewelina, and photography has been a part of my life for as long as I can remember! I am a family photographer who captures genuine emotions and little moments that tell your unique story. I believe in preserving the laughter, the hugs, and the quiet in-between moments — because one day, these photos will mean everything.</p>
+
+          <h3 style="margin-top:18px">Portfolio</h3>
+          <p style="color:var(--muted)">Family • Maternity • Newborn • Corporate / Personal / Brand</p>
+        </div>
+        <div class="about-portrait" data-aos="fade-left">
+          <img src="images/portrait.jpg" alt="Evelina portrait" onerror="this.src='https://picsum.photos/seed/evelina-portrait/900/900'">
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio" data-aos="fade-up">
+      <h2>Portfolio</h2>
+      <p class="lead">Capturing real connection, soft light and timeless moments. 
+      <!-- Family slider -->
+      <div class="category" id="family">
+        <h3>Family</h3>
+        <p>Capturing the essence of a family — laughter, tender moments and story-telling frames.</p>
+        <div class="slider" data-cat="family">
+          <button class="slide-btn prev" aria-label="Previous family slide">&lsaquo;</button>
+          <div class="slider-track" id="track-family" role="list"></div>
+          <button class="slide-btn next" aria-label="Next family slide">&rsaquo;</button>
+        </div>
+      </div>
+
+      <!-- Maternity slider -->
+      <div class="category" id="maternity">
+        <h3>Maternity</h3>
+        <p>Warm, natural portraits celebrating the beauty and connection of motherhood.</p>
+        <div class="slider" data-cat="maternity">
+          <button class="slide-btn prev" aria-label="Previous maternity slide">&lsaquo;</button>
+          <div class="slider-track" id="track-maternity" role="list"></div>
+          <button class="slide-btn next" aria-label="Next maternity slide">&rsaquo;</button>
+        </div>
+      </div>
+
+      <!-- Newborn slider -->
+      <div class="category" id="newborn">
+        <h3>Newborn / baby </h3>
+        <p>Gentle lifestyle newborn sessions — natural light, cozy moments, soft details.</p>
+        <div class="slider" data-cat="newborn">
+          <button class="slide-btn prev" aria-label="Previous newborn slide">&lsaquo;</button>
+          <div class="slider-track" id="track-newborn" role="list"></div>
+          <button class="slide-btn next" aria-label="Next newborn slide">&rsaquo;</button>
+        </div>
+      </div>
+
+      <!-- Individual slider -->
+      <div class="category" id="individual">
+        <h3>Individual</h3>
+        <p>Portraits, headshots and personal branding images that showcase personality and professionalism.</p>
+        <div class="slider" data-cat="individual">
+          <button class="slide-btn prev" aria-label="Previous individual slide">&lsaquo;</button>
+          <div class="slider-track" id="track-individual" role="list"></div>
+          <button class="slide-btn next" aria-label="Next individual slide">&rsaquo;</button>
+        </div>
+      </div>
+
+      <!-- KIND WORDS -->
+      <div class="kind-words" id="kind-words" data-aos="fade-up" data-aos-delay="120" aria-live="polite">
+        <div class="kind-inner" id="kw-inner">
+          <!-- Testimonials (centered in card) -->
+          <div class="testimonial active">
+            <div class="quote">“Had such a wonderful experience with Ewelina! She’s such a sweet photographer. Brilliant at what she do too. Recently we had an outdoor shoot with her in botanical park. The results came out absolutely amazing. Highly recommended if you are looking for a photoshoot for your family especially in an outdoor park. ❤️”</div>
+            <div class="client">— DIANA</div>
+          </div>
+          <div class="testimonial">
+            <div class="quote">“Thank you very much Ewelina for your professionalism, patience and care during our sessions. Love your works and we will definitely will call you again when the time comes 🥰.”</div>
+            <div class="client">— Baur &amp; Aizhan</div>
+          </div>
+          <div class="testimonial">
+            <div class="quote">“My family and I had an unforgettable maternity photoshoot with Ewelina. She made us feel very comfortable and helped us enjoy every moment of the shoot... Highly recommend Ewelina.”</div>
+            <div class="client">— ETI</div>
+          </div>
+          <div class="testimonial">
+            <div class="quote">“Ewelina is amazing! She have such a great eye and made the whole shoot super fun and easy. The photos turned out better than I could’ve imagined. Highly recommend!”</div>
+            <div class="client">— Susan Tricia</div>
+          </div>
+          <div class="testimonial">
+            <div class="quote">“We had the most wonderful experience with Ewelina for our maternity photoshoot at KLCC Park... Thank you, Ewelina. We highly recommend her!”</div>
+            <div class="client">— SWETA KUMARI</div>
+          </div>
+        </div>
+
+        <!-- controls -->
+        <div class="kw-controls" aria-hidden="false">
+          <div class="kw-arrow" id="kw-prev" aria-label="Previous testimonial">&lt;</div>
+          <div class="kw-dots" id="kw-dots" role="tablist"></div>
+          <div class="kw-arrow" id="kw-next" aria-label="Next testimonial">&gt;</div>
+        </div>
+      </div>
+
+      <!-- LET'S CONNECT -->
+      <div class="connect" data-aos="fade-up" data-aos-delay="140">
+        <h3 style="margin:0">Let’s connect</h3>
+        <p>I’d love to hear about your family and what you’re hoping to capture. Tell me about your session and I’ll reply with availability and next steps.</p>
+        <a href="#contact" class="btn">Get in touch</a>
+      </div>
+
+    </section>
+
+    <!-- JOURNAL (full content as provided) -->
+    <section id="journal" data-aos="fade-up">
+      <h2>From the Journal</h2>
+      <p class="lead">Session highlights, prep tips and behind-the-scenes stories.</p>
+
+      <div class="journal-grid" style="margin-top:18px">
+        <article class="journal-card">
+          <h3>When to Take Your Maternity Photography Session</h3>
+          <p>The Perfect Timing</p>
+          <p>The sweet spot for maternity photography is usually between 28 and 34 weeks of pregnancy. At this stage your belly has a lovely, round shape that beautifully shows your pregnancy glow. You still have enough energy to move comfortably, pose, and enjoy the session. It’s early enough to avoid the last few weeks, when you might feel more tired or uncomfortable.</p>
+          <details style="margin-top:8px"><summary>Read more</summary>
+            <p>Too Early (before 24 weeks): Your bump may not be fully visible in photos yet. Too Late (after 36 weeks): You may feel more tired, and there’s always the chance your little one could decide to arrive early.</p>
+            <p>Because maternity sessions are best done within that 28–34 week window, it’s a good idea to book your session early, ideally in your second trimester. This gives us plenty of time to plan your outfits, location, and style so you feel relaxed and prepared.</p>
+          </details>
+        </article>
+
+        <article class="journal-card">
+          <h3>Indoor or Outdoor Photoshoot – Which is Right for You?</h3>
+          <p>One of the first decisions you’ll make when booking your photoshoot is where it should take place – indoors or outdoors. Both options have their unique charm, and the choice really depends on your style, comfort, and the story you want your photos to tell.</p>
+          <details style="margin-top:8px"><summary>Read more</summary>
+            <h4>Indoor Photoshoots – Comfort & Control</h4>
+            <p>Indoor sessions are ideal if you’re looking for a more intimate, cozy, or controlled environment. Weather-proof: No stress about rain, heat, or unpredictable winds. Comfort for little ones: Perfect for newborns or young children who may feel more relaxed at home or in a studio.</p>
+            <h4>Outdoor Photoshoots – Natural Beauty & Adventure</h4>
+            <p>Outdoor sessions give your photos a sense of openness and connection to nature. Golden hour magic: Sunrise and sunset bring soft, flattering light that’s hard to beat. Kids can run, play, and explore — leading to natural, joyful expressions.</p>
+          </details>
+        </article>
+
+        <article class="journal-card">
+          <h3>Lifestyle Newborn Photography — Capturing Your First Days Together</h3>
+          <p>Welcoming a new baby into the world is such a magical, emotional time. Those first days are filled with love, tiny details, and moments you’ll want to remember forever.</p>
+          <details style="margin-top:8px"><summary>Read more</summary>
+            <p>Why choose lifestyle: Comfort & Convenience — No need to pack up and leave the house; everything happens in your own cozy, familiar space. Natural & Candid Moments — I focus on genuine connections, soft snuggles, and the everyday love you share.</p>
+          </details>
+        </article>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" data-aos="fade-up">
+      <h2>FAQ</h2>
+      <div class="faq-wrap" style="margin-top:18px">
+        <div class="faq-item" onclick="toggleFaq(this)"><div class="question">How do I book a session? <span>+</span></div><div class="answer">You can book directly through my contact form or by sending me a message. I’ll discuss your preferred date, location, and style, and I’ll guide you through the process.</div></div>
+        <div class="faq-item" onclick="toggleFaq(this)"><div class="question">What should we wear for a family photoshoot? <span>+</span></div><div class="answer">I recommend neutral or soft colors that complement each other. Avoid large logos or distracting patterns. I provide a full styling guide after booking.</div></div>
+        <div class="faq-item" onclick="toggleFaq(this)"><div class="question">Where will the photoshoot take place? <span>+</span></div><div class="answer">We can shoot outdoors in a natural location, at your home for a lifestyle feel, or in a studio if preferred.</div></div>
+        <div class="faq-item" onclick="toggleFaq(this)"><div class="question">How long will the session take? <span>+</span></div><div class="answer">Most family sessions last 45–90 minutes. Newborn sessions are 1.5–3 hours depending on the session type.</div></div>
+        <div class="faq-item" onclick="toggleFaq(this)"><div class="question">Do you work with small children? <span>+</span></div><div class="answer">Absolutely. I have patience and tricks to keep little ones engaged — the best photos come from real moments, not forced poses.</div></div>
+        <div class="faq-item" onclick="toggleFaq(this)"><div class="question">When will we receive our photos? <span>+</span></div><div class="answer">Within 3–5 days you'll receive an unedited gallery to choose favourites; edited gallery ready within two weeks after selections.</div></div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" data-aos="fade-up">
+      <h2>Contact Me</h2>
+      <p class="lead">Ready to chat about your session? Use any of the contact methods below and I’ll reply within 48 hours.</p>
+
+      <div class="contact-grid">
+        <a class="contact-link" href="mailto:photo.by.ewel@gmail.com" aria-label="Email Evelina">
+          <svg viewBox="0 0 24 24" fill="none" width="18" height="18" style="opacity:0.95"><path d="M3 6.5C3 5.67157 3.67157 5 4.5 5H19.5C20.3284 5 21 5.67157 21 6.5V17.5C21 18.3284 20.3284 19 19.5 19H4.5C3.67157 19 3 18.3284 3 17.5V6.5Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 6.5L12 12.5L3 6.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          photo.by.ewel@gmail.com
+        </a>
+
+        <a class="contact-link" href="https://wa.me/60173015478" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" fill="none" width="18" height="18" style="opacity:0.95"><path d="M21 12.004C21 17.523 16.523 22 11 22C9.085 22 7.282 21.527 5.71 20.66L3 22l1.5-3.11C4.042 17.86 3.5 15.98 3.5 14C3.5 8.48 8.017 4 13.538 4C19.06 4 21 8.485 21 12.004Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17.2 14.34C16.96 14.98 16.5 15.46 15.86 15.69C15.34 15.88 14.68 15.63 13.24 14.56C11.97 13.62 10.94 13.33 10.12 13.13C9.47 12.98 8.9 13.04 8.36 13.1C7.82 13.16 7.06 13.36 6.42 12.72C5.78 12.08 5.94 11.35 6.09 10.79C6.25 10.24 6.52 9.54 6.62 9.04C6.72 8.53 6.51 8.01 6.32 7.68C6.03 7.17 5.48 6.95 5 6.78" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          +60 17-301 5478
+        </a>
+
+        <a class="contact-link" href="https://www.instagram.com/ewelina.photography.kl" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" width="18" height="18" style="opacity:0.95"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.2"/><path d="M16 11.37C16.1229 12.3374 16.0142 13.3164 15.69 14.24C15.3657 15.1636 14.83 15.9993 14.12 16.68C13.41 17.36 12.55 17.86 11.59 18.12C10.63 18.38 9.6 18.38 8.64 18.12C7.68 17.86 6.82 17.36 6.11 16.68C5.4 15.9993 4.8643 15.1636 4.54 14.24C4.21579 13.3164 4.10712 12.3374 4.23 11.37C4.35289 10.4026 4.70311 9.47369 5.26 8.64C5.81689 7.80631 6.57 7.09 7.48 6.55C8.39001 6.00998 9.42 5.65 10.49 5.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          @ewelina.photography.kl
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    © <strong>Evelina Photography</strong> — All rights reserved
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)" role="dialog" aria-hidden="true">
+    <img id="lightbox-img" src="" alt="Expanded photo">
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({once:true,mirror:false});
+
+    /* ------------------------- NAV behavior ------------------------- */
+    const nav = document.getElementById('site-nav');
+    function updateNav(){ nav.classList.toggle('solid', window.scrollY > (window.innerHeight * 0.12)); }
+    updateNav(); window.addEventListener('scroll', updateNav);
+
+    /* ------------------------- populate sliders from local images/ folder ------------------------- */
+    // filenames expected: images/<category><n>.jpg
+    const CATEGORIES = {
+      'family': { id: 'track-family', prefix: 'family', count: 15 },
+      'maternity': { id: 'track-maternity', prefix: 'maternity', count: 15 },
+      'newborn': { id: 'track-newborn', prefix: 'newborn', count: 15 },
+      'individual': { id: 'track-individual', prefix: 'individual', count: 15 }
+    };
+
+    function populateTrack(trackId, prefix, count){
+      const track = document.getElementById(trackId);
+      for(let i=1;i<=count;i++){
+        const filename = `images/${prefix}${i}.jpg`;
+        // Build slide element
+        const slide = document.createElement('div');
+        slide.className = 'slide';
+        slide.setAttribute('data-full', filename);
+        // Use <img> with onerror fallback to picsum so the layout still looks filled if you haven't dropped images yet
+        slide.innerHTML = `<img loading="lazy" src="${filename}" alt="${prefix} ${i}" onerror="this.onerror=null;this.src='https://picsum.photos/seed/${encodeURIComponent(prefix+'-'+i)}/900/700'">`;
+        slide.addEventListener('click', ()=> openLightbox(slide));
+        track.appendChild(slide);
+      }
+    }
+
+    Object.values(CATEGORIES).forEach(c => populateTrack(c.id, c.prefix, c.count));
+
+    /* ------------------------- slider controls & autoplay ------------------------- */
+    document.querySelectorAll('.slider').forEach(slider => {
+      const track = slider.querySelector('.slider-track');
+      const prev = slider.querySelector('.slide-btn.prev');
+      const next = slider.querySelector('.slide-btn.next');
+
+      // autoplay: scroll by a slide width every X ms
+      const autoplayMs = 3500;
+      let autoInterval = null;
+      function startAuto(){
+        stopAuto();
+        autoInterval = setInterval(()=> {
+          // scroll next by one slide width
+          const slideWidth = (track.querySelector('.slide')?.clientWidth || track.clientWidth / 4) + parseInt(getComputedStyle(track).gap || 12);
+          track.scrollBy({ left: slideWidth, behavior: 'smooth' });
+          // if reached near end, jump to start (smooth)
+          if(track.scrollLeft + track.clientWidth >= track.scrollWidth - 10){
+            setTimeout(()=> track.scrollTo({ left:0, behavior:'smooth' }), 600);
+          }
+        }, autoplayMs);
+      }
+      function stopAuto(){ if(autoInterval) clearInterval(autoInterval); }
+
+      prev && prev.addEventListener('click', (e) => {
+        e.preventDefault();
+        const slideWidth = (track.querySelector('.slide')?.clientWidth || track.clientWidth / 4) + parseInt(getComputedStyle(track).gap || 12);
+        track.scrollBy({ left: -slideWidth, behavior: 'smooth' });
+        stopAuto(); setTimeout(startAuto, 3000);
+      });
+      next && next.addEventListener('click', (e) => {
+        e.preventDefault();
+        const slideWidth = (track.querySelector('.slide')?.clientWidth || track.clientWidth / 4) + parseInt(getComputedStyle(track).gap || 12);
+        track.scrollBy({ left: slideWidth, behavior: 'smooth' });
+        stopAuto(); setTimeout(startAuto, 3000);
+      });
+
+      // drag to scroll for desktop
+      let isDown=false,startX,scrollLeft;
+      track.addEventListener('mousedown', (e)=>{
+        isDown=true; track.classList.add('dragging'); startX=e.pageX - track.offsetLeft; scrollLeft=track.scrollLeft;
+      });
+      track.addEventListener('mouseleave', ()=>{ isDown=false; track.classList.remove('dragging'); });
+      track.addEventListener('mouseup', ()=>{ isDown=false; track.classList.remove('dragging'); });
+      track.addEventListener('mousemove', (e)=>{
+        if(!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - track.offsetLeft;
+        const walk = (x - startX) * 1.2; //scroll speed
+        track.scrollLeft = scrollLeft - walk;
+      });
+
+      // pause on hover
+      slider.addEventListener('mouseenter', stopAuto);
+      slider.addEventListener('mouseleave', startAuto);
+
+      // start autoplay
+      startAuto();
+    });
+
+    /* ------------------------- LIGHTBOX ------------------------- */
+    function openLightbox(el){
+      const src = el.getAttribute('data-full') || el.querySelector('img').src;
+      const lb = document.getElementById('lightbox');
+      const lbimg = document.getElementById('lightbox-img');
+      lbimg.src = src;
+      lb.style.display = 'flex';
+      lb.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox(e){
+      if(e.target.id === 'lightbox' || e.key === 'Escape'){
+        const lb = document.getElementById('lightbox');
+        lb.style.display = 'none';
+        lb.setAttribute('aria-hidden','true');
+        document.body.style.overflow = '';
+      }
+    }
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeLightbox({target:document.getElementById('lightbox'),key:'Escape'}) });
+
+    /* ------------------------- FAQ toggle ------------------------- */
+    function toggleFaq(el){
+      const ans = el.querySelector('.answer');
+      const open = window.getComputedStyle(ans).display !== 'none';
+      document.querySelectorAll('.faq-wrap .answer').forEach(a=>a.style.display='none');
+      if(!open) ans.style.display = 'block';
+    }
+
+    /* ------------------------- smooth anchors ------------------------- */
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', function(e){
+        const href = this.getAttribute('href');
+        if(!href || href === '#') return;
+        const target = document.querySelector(href);
+        if(target){
+          e.preventDefault();
+          const offset = nav.offsetHeight + 12;
+          const top = target.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({top,behavior:'smooth'});
+        }
+      });
+    });
+
+    /* ------------------------- KIND WORDS carousel (centered) ------------------------- */
+    (function(){
+      const container = document.getElementById('kind-words');
+      const slides = Array.from(container.querySelectorAll('.testimonial'));
+      const dotsWrap = document.getElementById('kw-dots');
+      const prevBtn = document.getElementById('kw-prev');
+      const nextBtn = document.getElementById('kw-next');
+      let index = 0, interval = null, ms = 6000;
+
+      // build dots
+      slides.forEach((s,i)=>{
+        const d = document.createElement('div');
+        d.className = 'kw-dot' + (i===0 ? ' active' : '');
+        d.setAttribute('data-i', i);
+        d.addEventListener('click', ()=> show(i));
+        dotsWrap.appendChild(d);
+      });
+
+      function show(i){
+        slides.forEach((s,idx)=> s.classList.toggle('active', idx===i));
+        dotsWrap.querySelectorAll('.kw-dot').forEach((dot,idx)=> dot.classList.toggle('active', idx===i));
+        index = i;
+      }
+      function next(){ show((index + 1) % slides.length); }
+      function prev(){ show((index - 1 + slides.length) % slides.length); }
+
+      prevBtn.addEventListener('click', ()=> { prev(); reset(); });
+      nextBtn.addEventListener('click', ()=> { next(); reset(); });
+
+      function start(){ if(interval) clearInterval(interval); interval = setInterval(next, ms); }
+      function stop(){ if(interval) clearInterval(interval); }
+      function reset(){ stop(); start(); }
+
+      container.addEventListener('mouseenter', stop);
+      container.addEventListener('mouseleave', start);
+
+      start();
+      show(0);
+    })();
+
+    /* ------------------------- HERO local image fallback check ------------------------- */
+    // if local hero image missing, add fallback class to hero
+    (function(){
+      const hero = document.getElementById('hero');
+      const img = new Image();
+      img.src = 'images/hero.jpg';
+      img.onload = function(){ /* local hero exists */ };
+      img.onerror = function(){ hero.classList.add('fallback'); };
+      const kind = new Image();
+      kind.src = 'images/kind-bg.jpg';
+      kind.onerror = function(){ document.getElementById('kind-words').classList.add('fallback'); };
+    })();
+  </script>
+</body>
+</html>
